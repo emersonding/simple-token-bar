@@ -10,12 +10,10 @@ final class PopoverController {
     init(pollingService: UsagePollingService) {
         self.pollingService = pollingService
         popover.behavior = .transient
-        let hostingController = NSHostingController(
+        popover.contentSize = NSSize(width: 360, height: 450)
+        popover.contentViewController = NSHostingController(
             rootView: PopoverContentView(pollingService: pollingService)
         )
-        // Let SwiftUI drive the size — don't constrain with fixed contentSize
-        hostingController.sizingOptions = [.preferredContentSize]
-        popover.contentViewController = hostingController
     }
 
     func show(relativeTo button: NSStatusBarButton) {

@@ -11,14 +11,14 @@ struct PopoverContentView: View {
             Divider()
             if showSettings {
                 InlineSettingsView(pollingService: pollingService)
-                    .frame(height: 340)
+                    .fixedSize(horizontal: false, vertical: true)
             } else {
                 content
             }
             Divider()
             footer
         }
-        .frame(width: 320)
+        .frame(width: 360)
     }
 
     private var header: some View {
@@ -132,20 +132,21 @@ private struct InlineSettingsView: View {
     @State private var saveStatus: String = ""
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                // Refresh interval
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Refresh Interval")
-                        .font(.subheadline.bold())
-                    Picker("", selection: Bindable(pollingService).interval) {
-                        ForEach(UsagePollingService.RefreshInterval.allCases, id: \.self) { interval in
-                            Text(interval.displayName).tag(interval)
-                        }
+        VStack(alignment: .leading, spacing: 16) {
+            // Refresh interval
+            HStack {
+                Text("Refresh Interval")
+                    .font(.subheadline.bold())
+                Spacer()
+                Picker("", selection: Bindable(pollingService).interval) {
+                    ForEach(UsagePollingService.RefreshInterval.allCases, id: \.self) { interval in
+                        Text(interval.displayName).tag(interval)
                     }
-                    .labelsHidden()
-                    .pickerStyle(.segmented)
                 }
+                .labelsHidden()
+                .pickerStyle(.menu)
+                .frame(width: 130)
+            }
 
                 Divider()
 
@@ -201,7 +202,6 @@ private struct InlineSettingsView: View {
                     Spacer()
                 }
             }
-            .padding(12)
-        }
+        .padding(12)
     }
 }
