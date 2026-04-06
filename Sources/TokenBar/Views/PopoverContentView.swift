@@ -11,6 +11,7 @@ struct PopoverContentView: View {
             Divider()
             if showSettings {
                 InlineSettingsView(pollingService: pollingService)
+                    .frame(height: 340)
             } else {
                 content
             }
@@ -18,7 +19,6 @@ struct PopoverContentView: View {
             footer
         }
         .frame(width: 320)
-        .frame(minHeight: showSettings ? 380 : 200)
     }
 
     private var header: some View {
@@ -92,12 +92,30 @@ struct PopoverContentView: View {
 
     private var footer: some View {
         HStack {
-            if !showSettings, let updated = pollingService.lastUpdated {
+            if showSettings {
+                Button("Quit TokenBar") {
+                    NSApp.terminate(nil)
+                }
+                .buttonStyle(.borderless)
+                .foregroundStyle(.red)
+                .font(.caption)
+            } else if let updated = pollingService.lastUpdated {
                 Text("Updated \(updated, style: .relative) ago")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }
             Spacer()
+            if !showSettings {
+                Button {
+                    NSApp.terminate(nil)
+                } label: {
+                    Image(systemName: "power")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.borderless)
+                .help("Quit TokenBar")
+            }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
@@ -144,26 +162,33 @@ private struct InlineSettingsView: View {
 
                 Divider()
 
-                // OpenAI
+                // OpenAI / Codex
                 VStack(alignment: .leading, spacing: 4) {
-                    Toggle("OpenAI", isOn: $openAIEnabled)
+                    Toggle("OpenAI / Codex", isOn: $openAIEnabled)
                         .onChange(of: openAIEnabled) { _, val in
                             ProviderRegistry.shared.setEnabled(.openai, enabled: val)
                         }
-                    HStack {
-                        SecureField("API Key", text: $openAIKey)
-                            .textFieldStyle(.roundedBorder)
-                        Button("Save") {
-                            Task {
-                                try? await KeychainManager.shared.save(key: "openai.apiKey", value: openAIKey)
-                                saveStatus = "Saved!"
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { saveStatus = "" }
+                    Text("Auto-detects from Codex CLI (~/.codex/auth.json)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    DisclosureGroup("Manual API Key") {
+                        HStack {
+                            SecureField("API Key", text: $openAIKey)
+                                .textFieldStyle(.roundedBorder)
+                            Button("Save") {
+                                Task {
+                                    try? await KeychainManager.shared.save(key: "openai.apiKey", value: openAIKey)
+                                    saveStatus = "Saved!"
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { saveStatus = "" }
+                                }
                             }
                         }
+                        if !saveStatus.isEmpty {
+                            Text(saveStatus).font(.caption).foregroundStyle(.green)
+                        }
                     }
-                    if !saveStatus.isEmpty {
-                        Text(saveStatus).font(.caption).foregroundStyle(.green)
-                    }
+                    .font(.caption)
                 }
 
                 Divider()
