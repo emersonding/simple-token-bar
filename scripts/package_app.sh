@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-APP_NAME="TokenBar"
+APP_NAME="Simple Token Bar"
 BUILD_DIR=".build/release"
 APP_BUNDLE="${APP_NAME}.app"
 CONTENTS="${APP_BUNDLE}/Contents"
@@ -12,14 +12,19 @@ mkdir -p "${CONTENTS}/MacOS"
 mkdir -p "${CONTENTS}/Resources"
 
 # Build app first, copy immediately (before CLI build overwrites it)
-echo "==> Building TokenBar app..."
+echo "==> Building app..."
 swift build -c release --product TokenBar
 cp "${BUILD_DIR}/TokenBar" "${CONTENTS}/MacOS/TokenBar"
 
 # Build CLI separately
-echo "==> Building tokenbar CLI..."
+echo "==> Building CLI..."
 swift build -c release --product tokenbar
 cp "${BUILD_DIR}/tokenbar" "${CONTENTS}/MacOS/tokenbar-cli"
+
+# App icon
+if [ -f "resources/AppIcon.png" ]; then
+    cp resources/AppIcon.png "${CONTENTS}/Resources/AppIcon.png"
+fi
 
 # Info.plist
 cat > "${CONTENTS}/Info.plist" << 'PLIST'
@@ -32,11 +37,13 @@ cat > "${CONTENTS}/Info.plist" << 'PLIST'
     <key>CFBundleExecutable</key>
     <string>TokenBar</string>
     <key>CFBundleIdentifier</key>
-    <string>com.tokenbar.app</string>
+    <string>com.simple-token-bar</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>TokenBar</string>
+    <string>Simple Token Bar</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
@@ -68,10 +75,10 @@ echo "==> ${APP_BUNDLE} created successfully!"
 echo "    Size: $(du -sh "${APP_BUNDLE}" | cut -f1)"
 echo ""
 echo "To install:"
-echo "    cp -r ${APP_BUNDLE} /Applications/"
+echo "    rm -rf /Applications/${APP_BUNDLE} && cp -r \"${APP_BUNDLE}\" /Applications/"
 echo ""
 echo "To launch:"
-echo "    open ${APP_BUNDLE}"
+echo "    open \"/Applications/${APP_BUNDLE}\""
 echo ""
 echo "To add CLI to PATH:"
-echo "    ln -sf /Applications/${APP_BUNDLE}/Contents/MacOS/tokenbar-cli /usr/local/bin/tokenbar"
+echo "    ln -sf \"/Applications/${APP_BUNDLE}/Contents/MacOS/tokenbar-cli\" /usr/local/bin/tokenbar"

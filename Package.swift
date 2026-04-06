@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "TokenBar",
+    name: "SimpleTokenBar",
     platforms: [
         .macOS(.v14)
     ],

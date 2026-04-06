@@ -1,4 +1,8 @@
-# TokenBar
+# Simple Token Bar
+
+<p align="center">
+  <img src="resources/AppIcon.png" width="128" alt="Simple Token Bar Icon" />
+</p>
 
 A lightweight macOS menu bar app that monitors AI provider token and credit usage. Inspired by [CodexBar](https://github.com/steipete/CodexBar) but fully rewritten from scratch.
 
@@ -27,17 +31,18 @@ A lightweight macOS menu bar app that monitors AI provider token and credit usag
 ### From Source
 
 ```bash
-git clone https://github.com/user/my-codex-bar.git
-cd my-codex-bar
+git clone https://github.com/nickeltin/simple-token-bar.git
+cd simple-token-bar
 
 # Build and package the app
 bash scripts/package_app.sh
 
 # Install to Applications
-cp -r TokenBar.app /Applications/
+rm -rf "/Applications/Simple Token Bar.app"
+cp -r "Simple Token Bar.app" /Applications/
 
 # Launch
-open /Applications/TokenBar.app
+open "/Applications/Simple Token Bar.app"
 ```
 
 ### CLI Tool
@@ -46,7 +51,7 @@ The CLI is bundled inside the app:
 
 ```bash
 # Symlink to PATH
-ln -sf /Applications/TokenBar.app/Contents/MacOS/tokenbar-cli /usr/local/bin/tokenbar
+ln -sf "/Applications/Simple Token Bar.app/Contents/MacOS/tokenbar-cli" /usr/local/bin/tokenbar
 
 # Usage
 tokenbar status              # human-readable table
@@ -56,13 +61,13 @@ tokenbar providers           # list configured providers
 
 ### Auto-Start on Login
 
-System Settings > General > Login Items > add TokenBar
+System Settings > General > Login Items > add Simple Token Bar
 
 ## How It Works
 
 ### Claude
 
-TokenBar reads the `sessionKey` cookie from Chrome (domain: `claude.ai`) and queries:
+Simple Token Bar reads the `sessionKey` cookie from Chrome (domain: `claude.ai`) and queries:
 - `GET claude.ai/api/organizations` — resolve org UUID
 - `GET claude.ai/api/organizations/{uuid}/usage` — 5-hour and 7-day utilization
 - `GET claude.ai/api/organizations/{uuid}/overage_spend_limit` — credit balance
@@ -71,7 +76,7 @@ No API key needed — just be logged into claude.ai in Chrome.
 
 ### OpenAI / Codex
 
-TokenBar uses a 3-tier authentication strategy:
+Simple Token Bar uses a 3-tier authentication strategy:
 
 1. **API Key** (if configured in Settings) — queries OpenAI billing endpoints
 2. **Codex CLI RPC** — launches `codex app-server` and queries rate limits via JSON-RPC (same approach as CodexBar)
@@ -107,7 +112,7 @@ Sources/
 Tests/
   TokenBarCoreTests/     25 unit tests
 scripts/
-  package_app.sh         Build and package TokenBar.app
+  package_app.sh         Build and package Simple Token Bar.app
 ```
 
 ## Development
@@ -131,7 +136,7 @@ bash scripts/package_app.sh
 
 ## Acknowledgments
 
-Inspired by [CodexBar](https://github.com/steipete/CodexBar) by Peter Steinberger. TokenBar is a clean-room rewrite — no code was copied, but the concept, provider API endpoints, and Codex CLI RPC approach are referenced from CodexBar's architecture.
+Inspired by [CodexBar](https://github.com/steipete/CodexBar) by Peter Steinberger. Simple Token Bar is a clean-room rewrite — no code was copied, but the concept, provider API endpoints, and Codex CLI RPC approach are referenced from CodexBar's architecture.
 
 ## License
 

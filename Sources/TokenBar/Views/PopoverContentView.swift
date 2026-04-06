@@ -33,7 +33,7 @@ struct PopoverContentView: View {
                 Text("Settings")
                     .font(.headline)
             } else {
-                Text("TokenBar")
+                Text("Simple Token Bar")
                     .font(.headline)
             }
             Spacer()
@@ -93,7 +93,7 @@ struct PopoverContentView: View {
     private var footer: some View {
         HStack {
             if showSettings {
-                Button("Quit TokenBar") {
+                Button("Quit Simple Token Bar") {
                     NSApp.terminate(nil)
                 }
                 .buttonStyle(.borderless)
@@ -114,7 +114,7 @@ struct PopoverContentView: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.borderless)
-                .help("Quit TokenBar")
+                .help("Quit Simple Token Bar")
             }
         }
         .padding(.horizontal, 12)
@@ -196,7 +196,7 @@ private struct InlineSettingsView: View {
 
                 // About
                 HStack {
-                    Text("TokenBar v1.0.0")
+                    Text("Simple Token Bar v1.0.0")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                     Spacer()

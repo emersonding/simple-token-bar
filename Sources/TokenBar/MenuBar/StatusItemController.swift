@@ -13,7 +13,7 @@ final class StatusItemController {
             button.imagePosition = .imageLeft
             button.action = #selector(handleClick)
             button.target = self
-            button.setAccessibilityTitle("TokenBar Usage")
+            button.setAccessibilityTitle("Simple Token Bar")
         }
     }
 
@@ -36,10 +36,10 @@ final class StatusItemController {
             button.image = StatusIconRenderer.renderIcon(usedPercent: maxUsed)
             if let pct = maxUsed {
                 button.title = " \(Int(pct))%"
-                button.setAccessibilityTitle("TokenBar: \(Int(pct))% used")
+                button.setAccessibilityTitle("Simple Token Bar: \(Int(pct))% used")
             } else {
                 button.title = ""
-                button.setAccessibilityTitle("TokenBar Usage")
+                button.setAccessibilityTitle("Simple Token Bar")
             }
         }
     }

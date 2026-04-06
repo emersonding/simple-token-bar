@@ -5,3 +5,5 @@ xcuserdata/
 DerivedData/
 .DS_Store
 .omc/
+*.app/
+nanobanana-output/
