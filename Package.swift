@@ -12,7 +12,6 @@ let package = Package(
         .library(name: "TokenBarCore", targets: ["TokenBarCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.8.0"),
         .package(url: "https://github.com/steipete/SweetCookieKit", from: "0.4.0"),
         .package(url: "https://github.com/apple/swift-log", from: "1.9.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
@@ -33,7 +32,6 @@ let package = Package(
             name: "TokenBar",
             dependencies: [
                 "TokenBarCore",
-                .product(name: "Sparkle", package: "Sparkle"),
                 .product(name: "SweetCookieKit", package: "SweetCookieKit"),
             ],
             path: "Sources/TokenBar"

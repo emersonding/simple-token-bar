@@ -1,15 +1,6 @@
 {
-  "originHash" : "7621a907e2dc97361063b50c36f7735110b71cc080f5bf30e4e057afa8fd9ae5",
+  "originHash" : "f5badcdb5e6b0a3e04e1d52493050a21fa5a9f046acdfd7096afdfde4d3f6c79",
   "pins" : [
-    {
-      "identity" : "sparkle",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sparkle-project/Sparkle",
-      "state" : {
-        "revision" : "066e75a8b3e99962685d6a90cdd5293ebffd9261",
-        "version" : "2.9.1"
-      }
-    },
     {
       "identity" : "sweetcookiekit",
       "kind" : "remoteSourceControl",
