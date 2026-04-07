@@ -4,7 +4,7 @@
   <img src="resources/AppIcon.png" width="128" alt="Simple Token Bar Icon" />
 </p>
 
-A lightweight macOS menu bar app that monitors AI provider token and credit usage. Inspired by [CodexBar](https://github.com/steipete/CodexBar) but fully rewritten from scratch.
+A lightweight macOS menu bar app that monitors AI provider token and credit usage. Inspired by [CodexBar](https://github.com/steipete/CodexBar).
 
 <p align="center">
   <img src="resources/screenshot-usage.png" width="300" alt="Usage View" />
