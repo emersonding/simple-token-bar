@@ -22,8 +22,8 @@ swift build -c release --product tokenbar
 cp "${BUILD_DIR}/tokenbar" "${CONTENTS}/MacOS/tokenbar-cli"
 
 # App icon
-if [ -f "resources/AppIcon.png" ]; then
-    cp resources/AppIcon.png "${CONTENTS}/Resources/AppIcon.png"
+if [ -f "resources/AppIcon.icns" ]; then
+    cp resources/AppIcon.icns "${CONTENTS}/Resources/AppIcon.icns"
 fi
 
 # Info.plist
